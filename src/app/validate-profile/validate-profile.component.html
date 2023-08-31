@@ -1,0 +1,139 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4 ">Profile Data</h2>
+  <table class="table table-bordered table-dark">
+    <thead class="thead-dark">
+      <tr>
+        <th class="text-center align-middle">Field</th>
+        <th class="text-center align-middle">Value</th>
+        <th class="text-center align-middle">Action</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="profileData">
+      <tr>
+        <td class="text-center align-middle">Created At</td>
+        <td class="text-center align-middle">{{ profileData.data.createdAt }}</td>
+        <td class="text-center align-middle">
+          <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+        >
+          update
+        </button>
+        </td>
+       
+      </tr>
+      <tr>
+        <td class="text-center align-middle">Payment Methods</td>
+        <td class="text-center align-middle">
+          <ul class="list-unstyled">
+            <li *ngFor="let method of profileData.paymentMethods">
+              {{ method }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center align-middle">Role</td>
+        <td class="text-center align-middle">{{ profileData.data.role }}</td>
+      </tr>
+      <tr>
+        <td class="text-center align-middle">Teams Assigned</td>
+        <td class="text-center align-middle">
+          <ul class="list-unstyled">
+            <li class="text-center align-middle" *ngFor="let team of profileData.teamsAssigned">{{ team }}</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center align-middle">User Name</td>
+        <td class="text-center align-middle">{{ profileData.data.userName }}</td>
+      </tr>
+      <tr>
+        <td class="text-center align-middle">_id</td>
+        <td class="text-center align-middle">{{ profileData.data._id }}</td>
+      </tr>
+
+      <tr>
+        <td class="text-center align-middle">firstNameFurigana</td>
+        <td class="text-center align-middle">{{ profileData.data.firstNameFurigana }}</td>
+      </tr>
+
+      <tr>
+        <td class="text-center align-middle">firstNameKanji</td>
+        <td class="text-center align-middle">{{ profileData.data.firstNameKanji }}</td>
+      </tr>
+      <tr>
+        <td class="text-center align-middle">lastNameFurigana</td>
+        <td class="text-center align-middle">{{ profileData.data.lastNameFurigana }}</td>
+      </tr>
+
+      <tr>
+        <td class="text-center align-middle">lastNameKanji</td>
+        <td class="text-center align-middle">{{ profileData.data.lastNameKanji }}</td>
+      </tr>
+
+      <tr>
+        <td class="text-center align-middle">profileImage</td>
+        <td class="text-center align-middle">{{ profileData.data.profileImage }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Update Record</h4>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        
+        <div class="modal-body" >
+          <form [formGroup]="loginForm" (ngSubmit)="userupdate()">
+            <div class="mb-3 mt-3">
+              <input type="text" class="form-control" placeholder="First Name (Furigana)" formControlName="firstNameFurigana">
+              <span *ngIf="submitted && loginForm.get('firstNameFurigana')?.hasError('required')" class="text-danger">
+                Must fill Field !!
+              </span>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="First Name (Kanji)" formControlName="firstNameKanji">
+              <span *ngIf="submitted && loginForm.get('firstNameKanji')?.hasError('required')" class="text-danger">
+                Must fill Field !!
+              </span>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Last Name (Furigana)" formControlName="lastNameFurigana">
+              <span *ngIf="submitted && loginForm.get('lastNameFurigana')?.hasError('required')" class="text-danger">
+                Must fill Field !!
+              </span>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Last Name (Kanji)" formControlName="lastNameKanji">
+              <span *ngIf="submitted && loginForm.get('lastNameKanji')?.hasError('required')" class="text-danger">
+                Must fill Field !!
+              </span>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Profile Image" formControlName="profileImage">
+              <span *ngIf="submitted && loginForm.get('profileImage')?.hasError('required')" class="text-danger">
+                Must fill Field !!
+              </span>
+            </div>
+            <button type="submit" class="btn bg-primary"  style="color: white;">Submit</button>
+            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
