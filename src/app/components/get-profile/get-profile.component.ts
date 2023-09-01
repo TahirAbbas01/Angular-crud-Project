@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { User } from 'src/app/UserModel';
 import { AllServicesService } from 'src/app/services/all-services.service';
 import { GlobalServiceService } from 'src/app/services/global-service.service';
+
 
 
 
@@ -26,7 +28,8 @@ export class GetProfileComponent implements OnInit {
   constructor(
     private formBuilder: RxFormBuilder,
     private globalService: GlobalServiceService,
-    private allservicesservice:AllServicesService
+    private allservicesservice:AllServicesService,
+    private router : Router
    
   ) {}
 
@@ -69,6 +72,10 @@ export class GetProfileComponent implements OnInit {
         },
         error: (error: any) => {
           console.error('Error updating profile:', error);
+          if (error.status === 500) {
+            alert('Token has expired. Please log in again.');
+           
+          }
         }
       });
     } else {
@@ -86,7 +93,14 @@ export class GetProfileComponent implements OnInit {
       },
       error: (error) => {
         console.error('An error occurred:', error);
+        if (error.status === 500) {
+          alert('Token has expired. Please log in again.');
+          this.router.navigate(['/login']);
+        }   
+
+
       }
+
     });
   }
 }
